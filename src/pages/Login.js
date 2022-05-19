@@ -59,6 +59,7 @@ export default class Login extends Component {
             >
               Entrar
             </button>
+            {/* <Header loading={ loading } /> */}
           </>
         )}
       </div>
