@@ -11,7 +11,6 @@ export default class Login extends Component {
 
   handleOnChangeLogin = ({ target }) => {
     const { name, value } = target;
-    console.log(target.name);
     this.setState({ [name]: value },
       () => this.validateLogin());
   }
@@ -59,7 +58,6 @@ export default class Login extends Component {
             >
               Entrar
             </button>
-            {/* <Header loading={ loading } /> */}
           </>
         )}
       </div>
