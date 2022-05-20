@@ -45,7 +45,11 @@ export default class Album extends Component {
               <h4 key={ music.trackId }>
                 <img src={ music.artworkUrl100 } alt="imagem-do-disco" />
                 <p>{music.trackName}</p>
-                <MusicCard track={ music.previewUrl } />
+                <MusicCard
+                  obj={ filteredAlbum }
+                  trackId={ music.trackId }
+                  track={ music.previewUrl }
+                />
               </h4>
             ))
         }
