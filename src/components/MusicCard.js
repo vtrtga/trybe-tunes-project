@@ -8,6 +8,13 @@ export default class MusicCard extends Component {
       loading: false,
     }
 
+    componentDidMount() {
+      const { getFavorites } = this.props;
+      this.setState({
+        checked: getFavorites,
+      });
+    }
+
   getFavoriteApi = async ({ target }) => {
     const { checked } = target;
     const { obj } = this.props;
@@ -52,4 +59,5 @@ MusicCard.propTypes = {
     trackId: PropTypes.string,
   }).isRequired,
   trackId: PropTypes.string.isRequired,
+  getFavorites: PropTypes.bool.isRequired,
 };

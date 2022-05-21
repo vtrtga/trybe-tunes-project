@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import getMusics from '../services/musicsAPI';
 import MusicCard from '../components/MusicCard';
+import { getFavoriteSongs } from '../services/favoriteSongsAPI';
 
 export default class Album extends Component {
   state = {
@@ -10,6 +11,7 @@ export default class Album extends Component {
     artistName: '',
     albumName: '',
     filteredAlbum: [],
+    getFromLocalStorage: [],
   }
 
   componentDidMount() {
@@ -19,16 +21,19 @@ export default class Album extends Component {
   getMusicApi = async () => {
     const { match: { params: { id } } } = this.props;
     const musics = await getMusics(id);
+    const getFavorites = await getFavoriteSongs();
     this.setState(({
       artistName: musics[0].artistName,
       albumName: musics[0].collectionName,
       loading: false,
       filteredAlbum: musics.filter((item) => Object.keys(item).includes('previewUrl')),
+      getFromLocalStorage: getFavorites,
     }));
   };
 
   render() {
-    const { loading, artistName, albumName, filteredAlbum } = this.state;
+    const { loading, artistName, albumName, filteredAlbum,
+      getFromLocalStorage } = this.state;
     return (
       <div data-testid="page-album">
         <Header />
@@ -49,6 +54,9 @@ export default class Album extends Component {
                   obj={ filteredAlbum }
                   trackId={ music.trackId }
                   track={ music.previewUrl }
+                  getFavorites={ getFromLocalStorage.some((item) => (
+                    item.trackId === music.trackId
+                  )) }
                 />
               </h4>
             ))
